@@ -5,7 +5,7 @@ import {
 } from "react-router-dom";
 
 // 页面组件
-import App from "./page/App";
+import App from "./pages/App";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Login from "./pages/Login";

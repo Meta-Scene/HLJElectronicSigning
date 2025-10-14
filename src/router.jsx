@@ -6,7 +6,10 @@ import {
 
 // 页面组件
 import App from "./pages/App";
-import Home from "./pages/Home";
+import Home from "./pages/Home/Home";
+import ESigning from "./pages/ESigning/ESigning";
+
+
 import About from "./pages/About";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
@@ -22,6 +25,7 @@ const router = createBrowserRouter([
     element: <App />,      // 顶层布局
     children: [
       { index: true, element: <Home /> },  // 默认主页
+      { path: "ESigning", element: <ESigning /> },
       { path: "about", element: <About /> },
 
       // 动态参数页 /project/123

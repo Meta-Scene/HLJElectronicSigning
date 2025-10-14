@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import styles from "./ESigning.module.css";
+import styles from "../ESigning/ESigning.module.css";
 import { useNavigate } from "react-router-dom";
 
 const stats = [
@@ -25,31 +25,26 @@ const latestOverview = {
   status: "待审核",
 };
 
-export default function ESigningDashboard() {
-  const navigate = useNavigate();
+export default function ESigningGov() {
+  const nav = useNavigate();
   const statusAction = useMemo(
-    () => ({
-      待审核: "审核",
-      待初审: "初审",
-      待复核: "复核",
-      已完成: "存证",
-    }),
+    () => ({ 待审核: "审核", 待初审: "初审", 待复核: "复核", 已完成: "存证" }),
     []
   );
 
   return (
     <div className={styles.shell}>
-      {/* 顶部条 */}
+      {/* 顶栏 */}
       <header className={styles.topbar}>
         <div className={styles.brand}>电子签约与存证系统 - 政府端</div>
         <div className={styles.user}>管理员</div>
       </header>
 
       <div className={styles.body}>
-        {/* 侧边栏 */}
+        {/* 左侧栏 */}
         <aside className={styles.sidebar}>
           <div className={styles.menuTitle}>合同管理</div>
-          <button className={styles.menuItem} onClick={() => navigate("/")}>待办合同</button>
+          <button className={styles.menuItem}>待办合同</button>
 
           <div className={styles.menuTitle}>模板库</div>
           <button className={styles.menuItem}>合同模板</button>
@@ -60,7 +55,7 @@ export default function ESigningDashboard() {
 
         {/* 主内容 */}
         <main className={styles.main}>
-          {/* 统计卡片 */}
+          {/* 顶部统计 */}
           <section className={styles.stats}>
             {stats.map(s => (
               <div key={s.label} className={styles.statCard}>
@@ -70,18 +65,21 @@ export default function ESigningDashboard() {
             ))}
           </section>
 
-          {/* 查询条 */}
-          <section className={styles.toolbar}>
+          {/* 搜索工具条：左“合同类型”，右“关键词搜索+按钮” */}
+          <section className={`${styles.toolbar} ${styles.toolbarGov}`}>
             <select className={styles.select}>
               <option>合同类型</option>
               <option>投资协议</option>
               <option>补贴协议</option>
             </select>
-            <input className={styles.input} placeholder="关键词搜索" />
-            <button className={styles.searchBtn} aria-label="搜索" />
+
+            <div className={styles.toolbarSearch}>
+              <input className={styles.input} placeholder="关键词搜索" />
+              <button className={styles.searchBtn} aria-label="搜索" />
+            </div>
           </section>
 
-          {/* 列表 */}
+          {/* 合同列表 */}
           <section className={styles.tableWrap}>
             <div className={`${styles.row} ${styles.rowHead}`}>
               <div>合同编号</div>
@@ -93,7 +91,7 @@ export default function ESigningDashboard() {
             {rows.map(r => (
               <div key={r.no} className={styles.row}>
                 <div>{r.no}</div>
-                <div>{r.name}</div>
+                <div className={styles.ellipsis}>{r.name}</div>
                 <div>
                   <span className={`${styles.badge} ${styles[`badge_${r.status}`]}`}>
                     {r.status}
@@ -101,14 +99,16 @@ export default function ESigningDashboard() {
                 </div>
                 <div className={styles.colActions}>
                   <button className={styles.linkBtn}>查看</button>
-                  <button className={styles.primaryBtn}>{statusAction[r.status]}</button>
+                  <button className={styles.primaryBtn} onClick={() => nav(`/contract/${r.no}`)}>
+                    {statusAction[r.status]}
+                  </button>
                 </div>
               </div>
             ))}
           </section>
         </main>
 
-        {/* 右侧栏 */}
+        {/* 右侧栏：概览 + 存证服务 */}
         <aside className={styles.rightbar}>
           <section className={styles.card}>
             <h3 className={styles.cardTitle}>合同概览</h3>

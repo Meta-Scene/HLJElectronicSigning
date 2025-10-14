@@ -7,7 +7,11 @@ import {
 // 页面组件
 import App from "./pages/App";
 import Home from "./pages/Home/Home";
-import ESigning from "./pages/ESigning/ESigning";
+import ESigningGVM from "./pages/ESigning/ESigningGVM";
+import ESigningPark from "./pages/ESigning/ESigningPark";
+import ESigningCorp from "./pages/ESigning/ESigningCorp";
+
+
 
 
 import About from "./pages/About";
@@ -25,7 +29,10 @@ const router = createBrowserRouter([
     element: <App />,      // 顶层布局
     children: [
       { index: true, element: <Home /> },  // 默认主页
-      { path: "ESigning", element: <ESigning /> },
+      // { path: "ESigning", element: <ESigningPark /> },
+      // { path: "ESigning", element: <ESigningGVM /> },
+      { path: "ESigning", element: <ESigningCorp /> },
+
       { path: "about", element: <About /> },
 
       // 动态参数页 /project/123

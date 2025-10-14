@@ -1,70 +1,166 @@
-:root { --brand:#1f3b6d; --bg:#f6f7fb; --line:#e5e7eb; --text:#1f2937; --muted:#6b7280; --card:#ffffff; --primary:#2f5597; }
-
-.shell { display:flex; flex-direction:column; height:100vh; background:var(--bg); color:var(--text); }
-.topbar { height:56px; background:var(--brand); color:#fff; display:flex; align-items:center; justify-content:space-between; padding:0 16px; }
-.brand { font-weight:600; }
-.user { opacity:.9; }
-
-.body { flex:1; display:grid; grid-template-columns: 220px 1fr 320px; gap:16px; padding:16px; }
-
-.sidebar { background:#eef2f7; border-radius:10px; padding:12px; }
-.menuTitle { font-size:12px; color:var(--muted); margin:12px 8px 6px; }
-.menuItem { width:100%; text-align:left; padding:10px 12px; border-radius:8px; border:1px solid transparent; background:#fff; margin-bottom:8px; cursor:pointer; }
-.menuItem:hover { border-color:var(--line); }
-
-.main { display:flex; flex-direction:column; gap:16px; }
-
-.stats { display:grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap:12px; }
-.statCard { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:14px; text-align:center; }
-.statValue { font-size:24px; font-weight:700; }
-.statLabel { color:var(--muted); margin-top:4px; }
-
-.toolbar { display:flex; gap:8px; align-items:center; }
-.select, .input { height:36px; border:1px solid var(--line); border-radius:10px; padding:0 12px; background:#fff; }
-.searchBtn { width:40px; height:36px; border-radius:10px; border:1px solid var(--line); background:var(--primary); position:relative; }
-.searchBtn::after { content:""; width:14px; height:14px; border:2px solid #fff; border-radius:50%; position:absolute; left:11px; top:9px; }
-.searchBtn::before { content:""; width:8px; height:2px; background:#fff; position:absolute; left:22px; top:21px; transform:rotate(45deg); }
-
-.tableWrap { background:var(--card); border:1px solid var(--line); border-radius:12px; overflow:hidden; }
-.row { display:grid; grid-template-columns: 1.2fr 1.2fr .8fr .9fr; gap:12px; padding:14px 16px; align-items:center; border-top:1px solid var(--line); }
-.row:first-child { border-top:none; }
-.rowHead { background:#fafbfc; font-weight:600; }
-.colActions { display:flex; gap:8px; justify-content:flex-end; }
-
-.badge { display:inline-block; padding:4px 8px; border-radius:999px; font-size:12px; }
-.badge_待审核 { background:#fde7d8; color:#b45309; }
-.badge_待初审 { background:#e0e7ff; color:#4338ca; }
-.badge_待复核 { background:#fde7d8; color:#b45309; }
-.badge_已完成 { background:#d1fae5; color:#065f46; }
-
-.linkBtn { height:32px; padding:0 10px; border:1px solid var(--line); border-radius:8px; background:#fff; cursor:pointer; }
-.primaryBtn { height:32px; padding:0 12px; border:none; border-radius:8px; background:var(--primary); color:#fff; cursor:pointer; }
-
-.rightbar { display:flex; flex-direction:column; gap:16px; }
-.card { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:14px; }
-.cardTitle { margin:0 0 10px; font-size:15px; }
-.field { display:flex; justify-content:space-between; padding:6px 0; border-bottom:1px dashed #edf0f4; }
-.field span:first-child { color:var(--muted); }
-.inputFull {
-  width: 100%;
-  box-sizing: border-box; /* ✅ 防止padding撑出父元素 */
-  height: 36px;
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  padding: 0 12px;
-  background: #fff;
+:root {
+  --brand:#1f3b6d;
+  --bg:#f6f7fb;
+  --line:#e5e7eb;
+  --text:#1f2937;
+  --muted:#6b7280;
+  --card:#ffffff;
+  --primary:#2f5597;
+  --shadow:0 6px 18px rgba(0,0,0,.06);
 }
 
-.meta { margin-top:10px; color:var(--muted); display:grid; gap:4px; }
+/* 容器与顶栏 */
+.shell{display:flex;flex-direction:column;height:100vh;overflow:hidden;background:var(--bg);color:var(--text);}
+.topbar{height:56px;background:var(--brand);color:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 16px;}
+.brand{font-weight:600;}
+.user{opacity:.9;}
 
-@media (max-width: 1100px) {
-  .body { grid-template-columns: 200px 1fr; }
-  .rightbar { display:none; }
+/* 主体布局 */
+.body{flex:1;display:grid;grid-template-columns:220px 1fr 320px;gap:16px;padding:16px;}
+
+/* 侧边栏 */
+.sidebar{background:#eef2f7;border-radius:10px;padding:12px;display:flex;flex-direction:column;gap:8px;}
+.menuTitle{font-size:12px;color:var(--muted);margin:12px 8px 6px;}
+.menuItem,.menuItemActive{width:100%;text-align:left;padding:10px 12px;border-radius:8px;border:1px solid transparent;background:#fff;cursor:pointer;}
+.menuItem:hover{border-color:var(--line);}
+.menuItemActive{border-color:var(--line);box-shadow:var(--shadow);font-weight:600;}
+
+/* 主内容 */
+.main{display:flex;flex-direction:column;gap:14px;}
+.pageTitle{margin:2px 2px 6px;font-size:18px;}
+
+/* 统计卡（政府端） */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;}
+.statCard{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;text-align:center;}
+.statValue{font-size:24px;font-weight:700;}
+.statLabel{color:var(--muted);margin-top:4px;}
+
+/* 工具栏通用 */
+.toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;}
+.select,.input,.search{height:36px;border:1px solid var(--line);border-radius:10px;padding:0 12px;background:#fff;box-sizing:border-box;}
+.searchBtn{width:40px;height:36px;border-radius:10px;border:1px solid var(--line);background:var(--primary);position:relative;}
+.searchBtn::after{content:"";width:14px;height:14px;border:2px solid #fff;border-radius:50%;position:absolute;left:11px;top:9px;}
+.searchBtn::before{content:"";width:8px;height:2px;background:#fff;position:absolute;left:22px;top:21px;transform:rotate(45deg);}
+
+/* —— 政府端搜索区布局修正 —— */
+.toolbarGov{display:grid;grid-template-columns:180px 1fr;gap:12px;align-items:center;}
+.toolbarSearch{display:grid;grid-template-columns:1fr 40px;gap:8px;width:100%;}
+.toolbarGov .select{width:100%;}
+.toolbarSearch .input{width:100%;min-width:0;box-sizing:border-box;}
+
+/* 表格 */
+.tableWrap{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;}
+.row{display:grid;grid-template-columns:1.2fr 1.2fr .8fr .9fr;gap:12px;padding:14px 16px;align-items:center;border-top:1px solid var(--line);}
+.row:first-child{border-top:none;}
+.rowHead{background:#fafbfc;font-weight:600;}
+.colActions{display:flex;gap:8px;justify-content:flex-end;}
+.ellipsis{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+
+/* 状态徽标 */
+.badge{display:inline-block;padding:4px 8px;border-radius:999px;font-size:12px;}
+.badge_待审核,.badge_待复核{background:#fde7d8;color:#b45309;}
+.badge_待初审,.badge_待园区签署{background:#e0e7ff;color:#4338ca;}
+.badge_待审批{background:#fff3cd;color:#8a6d3b;}
+.badge_待企业签署{background:#fde7d8;color:#b45309;}
+.badge_已完成{background:#d1fae5;color:#065f46;}
+
+/* 按钮 */
+.linkBtn{height:32px;padding:0 10px;border:1px solid var(--line);border-radius:8px;background:#fff;cursor:pointer;}
+.primaryBtn{height:32px;padding:0 12px;border:none;border-radius:8px;background:var(--primary);color:#fff;cursor:pointer;}
+
+/* 右侧栏与卡片 */
+.rightbar{display:flex;flex-direction:column;gap:16px;}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;box-shadow:var(--shadow);}
+.cardTitle{margin:0 0 10px;font-size:15px;}
+.field,.fieldRow{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px dashed #edf0f4;}
+.field span:first-child,.fieldRow span:first-child{color:var(--muted);}
+
+/* 存证服务输入框 */
+.inputFull{width:100%;height:36px;border:1px solid var(--line);border-radius:10px;padding:0 12px;background:#fff;box-sizing:border-box;}
+.meta{margin-top:10px;color:var(--muted);display:grid;gap:4px;}
+
+/* 统计进度条（若复用园区端统计） */
+.progress{height:8px;background:#eef2f7;border-radius:999px;margin-top:10px;overflow:hidden;}
+.progressBar{height:100%;background:var(--primary);}
+.success{color:#059669;}
+
+/* 响应式 */
+@media (max-width:1100px){ .body{grid-template-columns:200px 1fr;} .rightbar{display:none;} }
+@media (max-width:780px){
+  .body{grid-template-columns:1fr;}
+  .sidebar{display:none;}
+  .stats{grid-template-columns:repeat(2,minmax(0,1fr));}
+  .row{grid-template-columns:1fr;gap:6px;}
+  .colActions{justify-content:flex-start;}
+  .toolbarGov{grid-template-columns:1fr;}
 }
-@media (max-width: 780px) {
-  .body { grid-template-columns: 1fr; }
-  .sidebar { display:none; }
-  .stats { grid-template-columns: repeat(2, minmax(0,1fr)); }
-  .row { grid-template-columns: 1fr; gap:6px; }
-  .colActions { justify-content:flex-start; }
+
+/* —— 园区端 Tabs 修复 —— */
+.toolbarPark{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+}
+
+.tabs{
+  display:flex;
+  gap:8px;
+}
+
+/* 强化按钮重置与外观，避免被浏览器默认样式覆盖 */
+.tab{
+  appearance:none;
+  -webkit-appearance:none;
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:10px;
+  height:36px;
+  padding:0 14px;
+  font:inherit;
+  color:inherit;
+  cursor:pointer;
+  line-height:36px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  transition: background .12s ease, border-color .12s ease, box-shadow .12s ease;
+}
+.tab:hover{ border-color:#d1d5db; }
+.tab:focus-visible{ outline:2px solid #c7d2fe; outline-offset:2px; }
+
+.tabActive{
+  background:#eef2f7;
+  font-weight:600;
+  box-shadow:var(--shadow);
+}
+/* 让园区端右侧搜索区域三列对齐：选择框 / 输入框 / 按钮 */
+.rightOpsPark{
+  display:grid;
+  grid-template-columns: 160px minmax(260px,1fr) 40px;
+  gap:8px;
+  align-items:center;
+}
+.rightOpsPark .select,
+.rightOpsPark .search,
+.rightOpsPark .searchBtn{
+  height:36px;
+  width:100%;
+  box-sizing:border-box;
+}
+
+/* 表头与行的列宽固定，避免“签署”两字导致该列变窄 */
+.row,
+.rowHead{
+  grid-template-columns: 1.2fr 2fr 1fr 220px; /* 编号 / 名称 / 状态 / 操作 */
+}
+
+/* 操作列内按钮统一尺寸，保证总宽一致 */
+.colActions{ justify-content:flex-end; gap:8px; }
+.linkBtn,
+.primaryBtn{
+  height:32px;
+  min-width:88px;      /* 统一按钮宽度，含“签署”也与其他行对齐 */
+  text-align:center;
+  padding:0 12px;
 }

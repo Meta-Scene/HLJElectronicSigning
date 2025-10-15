@@ -1,30 +1,129 @@
-.wrapper { padding: 24px; max-width: 960px; margin: 0 auto; }
-.header { margin-bottom: 20px; }
-.title { font-size: 28px; margin: 0 0 6px; }
-.subtitle { color: #555; margin: 0; }
+:root {
+  --text: #d9e6ef;
+  --muted: #c7d3dc;
+}
+.bgStars{
+  position:absolute; inset:0; width:100%; height:100%; z-index:-1; object-fit:cover;
+}
+.hero {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  color: var(--text);
+  display: flex;
+  flex-direction: column;
+  justify-content: center; 
+  align-items: center;
+  overflow: hidden;
+  z-index:2;
+}
 
+.inner {
+  text-align: center;
+  width: 100%;
+  max-width: 1200px;
+  padding: 0 24px;
+}
+
+/* ===== 文案 ===== */
+.title {
+  margin: 0 0 8px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  line-height: 1.1;
+  font-size: clamp(28px, 5vw, 52px);
+  text-shadow: 0 4px 24px rgba(0, 0, 0, 0.45);
+  color: rgb(196, 222, 255);
+}
+.subtitle {
+  margin: 0 0 32px;
+  font-size: clamp(14px, 2vw, 20px);
+  color: var(--muted);
+  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.45);
+  color: white;
+
+}
+
+/* ===== 卡片区域 ===== */
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 12px;
+  grid-template-columns: repeat(4, minmax(160px, 1fr));
+  gap: 28px;
+  justify-items: center;
 }
 
+/* ===== 卡片 ===== */
 .card {
-  padding: 16px 18px;
-  border: 1px solid #e5e7eb;
-  border-radius: 12px;
-  background: #fff;
+  width: 200px;
+  height: 140px;
+  border: none;
+  border-radius: 10px;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.25);
   cursor: pointer;
-  text-align: center;
-  transition: transform .12s ease, box-shadow .12s ease, border-color .12s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.3);
 }
 
-.card:hover,
-.card:focus-visible {
-  transform: translateY(-1px);
-  box-shadow: 0 6px 18px rgba(0,0,0,.06);
-  border-color: #d1d5db;
-  outline: none;
+.iconImg {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  margin-bottom: 10px;
+}
+.text {
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
 }
 
-.cardText { font-size: 16px; color: #111; }
+/* ===== 渐变主题 ===== */
+.g1 {
+  background: linear-gradient(135deg, #8bc34a 0%, #9ccc65 45%, #7fbf3f 100%);
+}
+.g2 {
+  background: linear-gradient(135deg, #42a5f5 0%, #64b5f6 50%, #1e88e5 100%);
+}
+.g3 {
+  background: linear-gradient(135deg, #3f51b5 0%, #5c6bc0 50%, #3949ab 100%);
+}
+.g4 {
+  background: linear-gradient(135deg, #c86dd7 0%, #d76d77 40%, #ff8a65 100%);
+}
+
+/* ===== 响应式 ===== */
+@media (max-width: 1100px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(160px, 1fr));
+    gap: 20px;
+  }
+}
+@media (max-width: 560px) {
+  .hero {
+    justify-content: center;
+    padding-bottom: 0;
+  }
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .card {
+    width: 100%;
+    max-width: 320px;
+    height: 120px;
+  }
+  .iconImg {
+    width: 36px;
+    height: 36px;
+  }
+  .text {
+    font-size: 15px;
+  }
+}

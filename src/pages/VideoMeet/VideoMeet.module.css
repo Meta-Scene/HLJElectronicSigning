@@ -221,3 +221,79 @@
 .enterBtn:hover, .viewRecordBtn:hover {
   opacity: 0.8;
 }
+
+/* 页面与卡片 */
+.pageWrap{ padding:2vh 2vw; }
+.card{
+  background:#fff; border-radius:8px; padding:20px;
+  box-shadow:0 2px 6px rgba(0,0,0,.06); margin-bottom:16px;
+}
+.sectionTitle{ font-size:16px; font-weight:600; margin-bottom:12px; }
+
+/* 表单网格 */
+.formGrid2{
+  display:grid; grid-template-columns: 1fr 1fr; gap:16px;
+}
+.formItem{ display:flex; flex-direction:column; }
+.formItemFull{ grid-column:1 / -1; display:flex; flex-direction:column; }
+.label{ color:#555; margin-bottom:6px; font-size:14px; }
+.input,.select,.textarea{
+  border:1px solid #e5e5e5; border-radius:6px; padding:10px 12px; font-size:14px;
+}
+.textarea{ min-height:88px; resize:vertical; }
+.select{ background:#fff; }
+
+/* 分割线（虚线） */
+.dashedDivider{ border-top:1px dashed #d8d8d8; margin-top:16px; }
+
+/* 预览框 */
+.previewBox{
+  height:140px; border:1px dashed #d8d8d8; border-radius:6px;
+  display:flex; align-items:center; justify-content:center; color:#9a9a9a;
+  background:#fafafa;
+}
+
+/* 添加成员行与按钮 */
+.addRow{ display:flex; gap:12px; margin-bottom:12px; }
+.primaryBtn{
+  padding:8px 14px; border-radius:6px; background:#1677ff; color:#fff;
+  border:none; cursor:pointer;
+}
+
+/* 角色选择与危险链接 */
+.roleSelect{ padding:6px 10px; border:1px solid #ddd; border-radius:6px; }
+.linkDanger{ color:#e05555; cursor:pointer; }
+
+/* 会议选项 */
+.optionGrid{
+  display:grid; grid-template-columns: 1fr 1fr 1fr; gap:16px; margin-top:8px;
+}
+.optionCol{ display:flex; flex-direction:column; }
+.checkRow{ display:flex; align-items:center; gap:8px; color:#444; }
+
+/* 页脚按钮（右下角） */
+.footerBtns{ display:flex; justify-content:flex-end; gap:12px; margin-top:16px; }
+.btnGhost{
+  background:#fff; color:#333; border:1px solid #dcdcdc; border-radius:6px;
+  padding:8px 16px; cursor:pointer;
+}
+.btnPrimary{
+  background:#1677ff; color:#fff; border:none; border-radius:6px;
+  padding:8px 16px; cursor:pointer;
+}
+
+/* 响应 */
+@media (max-width: 980px){
+  .formGrid2{ grid-template-columns:1fr; }
+  .optionGrid{ grid-template-columns:1fr; }
+  
+  
+}
+/* 顶栏是 7vh，高度按你现有设置来算 */
+.scrollArea{
+  height: calc(100vh - 7vh);
+  overflow: auto;                 /* 自身滚动 */
+  -webkit-overflow-scrolling: touch; /* iOS 平滑 */
+  padding: 2vh 2vw;               /* 原 pageWrap 的内边距可放到这里 */
+  box-sizing: border-box;
+}

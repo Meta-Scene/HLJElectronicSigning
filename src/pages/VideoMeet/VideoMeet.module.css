@@ -297,3 +297,78 @@
   padding: 2vh 2vw;               /* 原 pageWrap 的内边距可放到这里 */
   box-sizing: border-box;
 }
+
+/* 会议记录卡片 */
+.logCard{
+  background:#fff;
+  border-radius:8px;
+  box-shadow:0 2px 6px rgba(0,0,0,.06);
+  padding:20px;
+  margin:16px 2vw;
+}
+.logHeader{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:12px;
+}
+.logTools{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.logSearch{
+  width:280px;
+  padding:10px 12px;
+  border:1px solid #ddd;
+  border-radius:6px;
+  font-size:14px;
+}
+.logSelect{
+  padding:10px 12px;
+  border:1px solid #ddd;
+  border-radius:6px;
+  background:#fff;
+  font-size:14px;
+}
+.logFilterBtn{
+  padding:9px 16px;
+  border:1px solid #cfcfcf;
+  background:#fff;
+  border-radius:6px;
+  cursor:pointer;
+}
+
+/* 斑马纹行（与截图一致的浅灰条纹） */
+.rowAlt{ background:#f7f9fc; }
+
+/* 分页 */
+.pager{
+  display:flex;
+  justify-content:center;
+  gap:8px;
+  padding:16px 0 4px;
+}
+.pagerBtn{
+  border:1px solid #d7dbe3;
+  background:#fff;
+  padding:6px 12px;
+  border-radius:6px;
+  cursor:pointer;
+  color:#405066;
+}
+.pagerNum{ width:36px; text-align:center; }
+.pagerActive{
+  background:#2d6df6;
+  color:#fff;
+  border-color:#2d6df6;
+}
+
+/* 让列表在全局 overflow:hidden 下可滚动（使用你已有的 scrollArea） */
+.scrollArea{
+  height: calc(100vh - 7vh);
+  overflow:auto;
+  -webkit-overflow-scrolling:touch;
+  padding-top: 2vh;
+  box-sizing:border-box;
+}

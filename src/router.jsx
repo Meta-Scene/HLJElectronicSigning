@@ -12,6 +12,7 @@ import ESigningPark from "./pages/ESigning/ESigningPark";
 import ESigningCorp from "./pages/ESigning/ESigningCorp";
 import MeetManage from "./pages/VideoMeet/MeetManage";
 import CreateMeet from "./pages/VideoMeet/CreateMeet";
+import MeetLog from "./pages/VideoMeet/MeetLog";
 
 
 
@@ -35,6 +36,7 @@ const router = createBrowserRouter([
       { path: "ESigning", element: <ESigningCorp /> },
       { path: "MeetManage", element: <MeetManage /> },
       { path: "CreateMeet", element: <CreateMeet /> },
+      { path: "MeetLog", element: <MeetLog /> },
 
       { path: "about", element: <About /> },
 

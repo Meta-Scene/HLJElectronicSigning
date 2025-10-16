@@ -11,9 +11,7 @@ import ESigningGVM from "./pages/ESigning/ESigningGVM";
 import ESigningPark from "./pages/ESigning/ESigningPark";
 import ESigningCorp from "./pages/ESigning/ESigningCorp";
 import MeetManage from "./pages/VideoMeet/MeetManage";
-
-
-
+import CreateMeet from "./pages/VideoMeet/CreateMeet";
 
 
 
@@ -35,7 +33,9 @@ const router = createBrowserRouter([
       // { path: "ESigning", element: <ESigningPark /> },
       // { path: "ESigning", element: <ESigningGVM /> },
       { path: "ESigning", element: <ESigningCorp /> },
-      { path: "VideoMeet", element: <MeetManage /> },
+      { path: "MeetManage", element: <MeetManage /> },
+      { path: "CreateMeet", element: <CreateMeet /> },
+
       { path: "about", element: <About /> },
 
       // 动态参数页 /project/123

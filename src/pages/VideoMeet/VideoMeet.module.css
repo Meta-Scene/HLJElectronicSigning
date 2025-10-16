@@ -106,3 +106,118 @@
     margin-top: 1vh;
     color: blue;
 }
+/* 修改后的下拉框样式，使其更大 */
+.filterSelect {
+  margin-left: 10px;
+  padding: 8px 15px;  /* 增大padding */
+  border-radius: 4px;
+  font-size: 16px; /* 增大字体 */
+  border: 1px solid #ddd;
+  cursor: pointer;
+}
+
+/* 搜索框样式 */
+.searchBox {
+  margin-left: 20px;
+  margin-top: -2.3vh;
+
+  display: flex;
+  align-items: center;
+}
+
+.searchInput {
+  padding: 8px 15px;
+  font-size: 16px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  width: 200px; /* 控制输入框宽度 */
+  margin-top: 0.5vh;
+  cursor: pointer;
+}
+
+.searchInput::placeholder {
+  color: #aaa;
+}
+
+/* 其余样式保持不变 */
+.meetingCard {
+  margin-top: 3vh;
+  margin-left: 2vw;
+  margin-right: 2vw;
+  padding: 2vw;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.filterBox {
+  margin-bottom: 2vh;
+  display: flex;
+  align-items: center;
+}
+
+.flexbox {
+  display: flex;
+  justify-content: space-between;
+}
+
+.meetingCardTitle {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th, .table td {
+  padding: 10px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+
+.table th {
+  background-color: #f1f1f1;
+  font-weight: bold;
+}
+
+.table td {
+  font-size: 14px;
+}
+
+.进行中 {
+  color: green;
+}
+
+.未开始 {
+  color: blue;
+}
+
+.已结束 {
+  color: red;
+}
+
+.enterBtn, .viewRecordBtn {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  color: rgb(0, 0, 0);
+  border-style: solid;
+  border-width:1px;
+  border-color:#cfcfcf;
+}
+
+.enterBtn {
+  background-color: rgb(255, 255, 255);
+}
+
+.viewRecordBtn {
+  background-color: #ffffff;
+}
+
+.enterBtn:hover, .viewRecordBtn:hover {
+  opacity: 0.8;
+}

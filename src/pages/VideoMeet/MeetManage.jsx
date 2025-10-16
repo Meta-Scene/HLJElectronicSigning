@@ -2,6 +2,13 @@ import React from 'react';
 import styles from './VideoMeet.module.css';
 
 const MeetManage = () => {
+  const cardItems = [
+    { title: '今日会议数', data: 12, className: styles.carddata1 },
+    { title: '进行中会议', data: 5, className: styles.carddata2 },
+    { title: '已结束会议', data: 7, className: styles.carddata3 },
+    { title: '待开始会议', data: 3, className: styles.carddata4 },
+  ];
+
   return (
     <div>
       <div className={styles.topNav}>
@@ -17,26 +24,15 @@ const MeetManage = () => {
         </div>
       </div>
       <div className={styles.cardbox}>
-        <div className={styles.cardItem}>
-            <div className={styles.cardtitle}>今日会议数</div>
-            <div className={styles.carddata1}>12</div>
-        </div>
-        <div className={styles.cardItem}>
-            <div className={styles.cardtitle}>进行中会议</div>
-            <div className={styles.carddata2}>5</div>
-        </div>
-        <div className={styles.cardItem}>
-            <div className={styles.cardtitle}>已结束会议</div>
-            <div className={styles.carddata3}>7</div>
-        </div>
-        <div className={styles.cardItem}>
-            <div className={styles.cardtitle}>待开始会议</div>
-            <div className={styles.carddata4}>3</div>
-        </div>
-
+        {cardItems.map((item, index) => (
+          <div key={index} className={styles.cardItem}>
+            <div className={styles.cardtitle}>{item.title}</div>
+            <div className={item.className}>{item.data}</div>
+          </div>
+        ))}
       </div>
     </div>
   );
-}
+};
 
 export default MeetManage;

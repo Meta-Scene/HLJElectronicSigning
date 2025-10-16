@@ -9,7 +9,7 @@
 
 .topNavLeft {
     display: flex;
-    align-items: center; /* 保证左侧元素垂直居中 */
+    align-items: center;
 }
 
 .topNavRight {
@@ -23,7 +23,7 @@
     height: 40px;
     width: 40px;
     margin-right: 1vw;
-    border-radius: 50%; /* 圆形头像 */
+    border-radius: 50%;
 }
 
 .subtitle {
@@ -47,52 +47,62 @@
     color: #666;
     font-weight: bold;
 }
-.cardbox{
+
+.cardbox {
     width: 100%;
     margin-top: 4vh;
     height: 12vh;
     display: flex;
     padding: 0 2vw;
     justify-content: space-between;
+    flex-wrap: wrap;
 }
-.cardItem{
-    width: 30vh;
+
+.cardItem {
+    width: 22vw; /* 控制卡片宽度 */
     height: 100%;
     background-color: white;
     border-radius: 8px;
+    padding: 1vh 2vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
 }
-.cardtitle{
+
+.cardtitle {
     font-size: 16px;
-    font-weight: 600;
-    margin-left: 2vw;
-    margin-top: 1.5vh;
     font-weight: normal;
+    margin-bottom: 1vh;
+}
 
-}
-.carddata1{
-    font-size: 28px;
-    font-weight: 600;
-    margin-left: 2vw;
-    margin-top: 1vh;
-}
-.carddata2{
-    font-size: 28px;
-    font-weight: 600;
-    margin-left: 2vw;
-    margin-top: 1vh;
-    color:rgb(62, 247, 99)
-}.carddata3{
-    font-size: 28px;
-    font-weight: 600;
-    margin-left: 2vw;
-    margin-top: 1vh;
-    color:red;
 
-}
-.carddata4{
+
+/* 特定卡片数据的样式 */
+.carddata1 {
     font-size: 28px;
     font-weight: 600;
-    margin-left: 2vw;
     margin-top: 1vh;
-    color:blue;
+    color: black;
+}
+
+.carddata2 {
+    font-size: 28px;
+    font-weight: 600;
+    margin-top: 1vh;
+    color: rgb(62, 247, 99); /* 绿色 */
+}
+
+.carddata3 {
+    font-size: 28px;
+    font-weight: 600;
+    margin-top: 1vh;
+    color: red;
+}
+
+.carddata4 {
+    font-size: 28px;
+    font-weight: 600;
+    margin-top: 1vh;
+    color: blue;
 }

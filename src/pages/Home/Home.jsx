@@ -1,3 +1,4 @@
+// Home.jsx (Landing)
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./Home.module.css";
@@ -9,10 +10,10 @@ import icSign from "../../assets/ElectronicSigning.png";
 import icPolicy from "../../assets/PolicyFulfillment.png";
 
 const cards = [
-  { label: "云上漫游", path: "/Roaming",    grad: "g1", icon: icRoaming },
-  { label: "视频洽谈", path: "/MeetManage", grad: "g2", icon: icVideo },
-  { label: "电子签约", path: "/ESigning",    grad: "g3", icon: icSign },
-  { label: "政策兑付", path: "/PolicyPayment",      grad: "g4", icon: icPolicy },
+  { label: "云上漫游", path: "/Roaming",       grad: "g1", icon: icRoaming },
+  { label: "视频洽谈", path: "/MeetManage",    grad: "g2", icon: icVideo },
+  { label: "电子签约", path: "/ESigning",      grad: "g3", icon: icSign },
+  { label: "政策兑付", path: "/PolicyPayment", grad: "g4", icon: icPolicy },
 ];
 
 export default function Landing() {
@@ -24,12 +25,19 @@ export default function Landing() {
       <div className={styles.inner}>
         <h1 className={styles.title}>欢迎来到云上会客厅</h1>
         <p className={styles.subtitle}>赋能双鸭山：家底清，服务优，产业兴</p>
-        <div className={styles.grid}>
-          {cards.map(c => (
+
+        <div className={`${styles.grid} ${styles.persp}`}>
+          {cards.map((c, idx) => (
             <button
               key={c.path}
               type="button"
-              className={`${styles.card} ${styles[c.grad]}`}
+              className={[
+                styles.card,
+                styles[c.grad],
+                styles.card3d,
+                // 修正方向：左两张左侧更高 -> rotateY(10deg)；右两张右侧更高 -> rotateY(-10deg)
+                idx < 2 ? styles.tiltRight : styles.tiltLeft,
+              ].join(" ")}
               onClick={() => nav(c.path)}
               aria-label={c.label}
             >

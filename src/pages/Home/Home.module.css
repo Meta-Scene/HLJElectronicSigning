@@ -161,3 +161,107 @@
   height: 100%;
   overflow: auto;
 }
+
+/* 给整排增加透视，让每张卡的轻微旋转形成“弧形” */
+.curvedGrid{
+  perspective: 1200px;               /* 控制弧度远近感 */
+  transform-style: preserve-3d;
+}
+
+/* 基础弧度：轻微后仰，并随序号左右旋转一点 */
+.curvedCard{
+  --rx: 2deg;                         /* 统一微后仰 */
+  --ry: 0deg;                         /* 每张卡的左右转角，下面按序号覆盖 */
+  transform: rotateX(var(--rx)) rotateY(var(--ry));
+  transform-origin: center center;
+  will-change: transform, box-shadow;
+}
+
+/* 让中间更平、两侧更“外撇”，产生整体弧线的错觉 */
+.curvedGrid > .curvedCard:nth-child(1){ --ry: -6deg; }
+.curvedGrid > .curvedCard:nth-child(2){ --ry: -2deg; }
+.curvedGrid > .curvedCard:nth-child(3){ --ry:  2deg; }
+.curvedGrid > .curvedCard:nth-child(4){ --ry:  6deg; }
+
+/* 细节：加一个内阴影与角落高光，增强立体感 */
+.curvedCard::before{
+  content:"";
+  position:absolute; inset:0; border-radius:10px;
+  pointer-events:none;
+  box-shadow: inset 0 0 60px rgba(0,0,0,.12);
+}
+.curvedCard::after{
+  content:"";
+  position:absolute; inset:0; border-radius:10px;
+  background: radial-gradient(120% 80% at 20% 10%, rgba(255,255,255,.18), transparent 60%);
+  pointer-events:none;
+}
+
+/* 悬停时稍微“拉平”一点，强化交互但保留弧度 */
+.curvedCard:hover{
+  transform: translateY(-4px) rotateX(1deg) rotateY(calc(var(--ry)*.6));
+  box-shadow: 0 16px 32px rgba(0,0,0,.3);
+}
+
+/* 窄屏时弧度减弱，避免单列时过度倾斜 */
+@media (max-width: 1100px){
+  .curvedGrid > .curvedCard:nth-child(1),
+  .curvedGrid > .curvedCard:nth-child(2),
+  .curvedGrid > .curvedCard:nth-child(3),
+  .curvedGrid > .curvedCard:nth-child(4){ --ry: 0deg; }
+}
+
+/* 让子元素 3D 变换有透视投影，形成“看上去一侧更高”的梯形 */
+.persp{
+  perspective: 1200px;
+  transform-style: preserve-3d;
+}
+
+/* 作为 3D 基础：轻微后仰，避免太平 */
+.card3d{
+  transform-style: preserve-3d;
+  transform-origin: center center;
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+
+/* 左侧两张：向屏幕后翻一点（右边离你近，看起来右边更低、左边更高） */
+.tiltLeft{
+  transform: rotateX(1deg) rotateY(-10deg);
+}
+
+/* 右侧两张：向屏幕前翻一点（左边离你近，看起来左边更低、右边更高） */
+.tiltRight{
+  transform: rotateX(1deg) rotateY(10deg);
+}
+
+/* 悬停时略微回正，交互更自然 */
+.tiltLeft:hover{
+  transform: translateY(-4px) rotateX(0.5deg) rotateY(-6deg);
+}
+.tiltRight:hover{
+  transform: translateY(-4px) rotateX(0.5deg) rotateY(6deg);
+}
+
+/* 取消圆角 */
+.card{ border-radius: 0 !important; }
+
+/* 3D 透视与变换 */
+.persp{
+  perspective: 1200px;
+  transform-style: preserve-3d;
+}
+.card3d{
+  transform-style: preserve-3d;
+  transform-origin: center center;
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+
+/* 方向修正：
+   tiltRight：rotateY(10deg) -> 左侧更高（左边远、右边近的反效果视觉上左边高）
+   tiltLeft ：rotateY(-10deg) -> 右侧更高 */
+.tiltRight{ transform: rotateX(1deg) rotateY(15deg); }
+.tiltLeft { transform: rotateX(1deg) rotateY(-15deg); }
+
+/* 悬停略回正 */
+.tiltRight:hover{ transform: translateY(-4px) rotateX(.5deg) rotateY(6deg); }
+.tiltLeft:hover { transform: translateY(-4px) rotateX(.5deg) rotateY(-6deg); }

@@ -10,7 +10,7 @@ import icPolicy from "../../assets/PolicyFulfillment.png";
 
 const cards = [
   { label: "云上漫游", path: "/Roaming",    grad: "g1", icon: icRoaming },
-  { label: "视频洽谈", path: "/Negotiation", grad: "g2", icon: icVideo },
+  { label: "视频洽谈", path: "/VideoMeet", grad: "g2", icon: icVideo },
   { label: "电子签约", path: "/ESigning",    grad: "g3", icon: icSign },
   { label: "政策兑付", path: "/Policy",      grad: "g4", icon: icPolicy },
 ];

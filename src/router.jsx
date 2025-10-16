@@ -10,6 +10,9 @@ import Home from "./pages/Home/Home";
 import ESigningGVM from "./pages/ESigning/ESigningGVM";
 import ESigningPark from "./pages/ESigning/ESigningPark";
 import ESigningCorp from "./pages/ESigning/ESigningCorp";
+import MeetManage from "./pages/VideoMeet/MeetManage";
+
+
 
 
 
@@ -32,7 +35,7 @@ const router = createBrowserRouter([
       // { path: "ESigning", element: <ESigningPark /> },
       // { path: "ESigning", element: <ESigningGVM /> },
       { path: "ESigning", element: <ESigningCorp /> },
-
+      { path: "VideoMeet", element: <MeetManage /> },
       { path: "about", element: <About /> },
 
       // 动态参数页 /project/123

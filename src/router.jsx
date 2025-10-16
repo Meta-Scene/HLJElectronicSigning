@@ -13,8 +13,7 @@ import ESigningCorp from "./pages/ESigning/ESigningCorp";
 import MeetManage from "./pages/VideoMeet/MeetManage";
 import CreateMeet from "./pages/VideoMeet/CreateMeet";
 import MeetLog from "./pages/VideoMeet/MeetLog";
-
-
+import PolicyPayment from "./pages/PolicyPayment/PolicyPayment";
 
 import About from "./pages/About";
 import Login from "./pages/Login";
@@ -37,6 +36,8 @@ const router = createBrowserRouter([
       { path: "MeetManage", element: <MeetManage /> },
       { path: "CreateMeet", element: <CreateMeet /> },
       { path: "MeetLog", element: <MeetLog /> },
+      { path: "PolicyPayment", element: <PolicyPayment /> },
+
 
       { path: "about", element: <About /> },
 

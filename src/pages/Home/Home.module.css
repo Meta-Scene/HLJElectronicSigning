@@ -127,3 +127,37 @@
     font-size: 15px;
   }
 }
+
+/* 视窗容器：顶栏高度=56px，填满剩余空间，自身或子元素滚动 */
+.viewport{
+  position: fixed;
+  top: 56px;   /* 顶栏高度 */
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;   /* 容器自己不滚，交给子元素滚 */
+}
+
+/* 原有 .body 作为两列布局 */
+.body{
+  height: 100%;
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* 让内容区滚动（推荐） */
+.mainScroll{
+  flex: 1;
+  height: 100%;
+  overflow: auto;                 /* 这里产生滚动条 */
+  -webkit-overflow-scrolling: touch;
+}
+
+/* 如侧边也可能超出高度，可让它单独滚动 */
+.sidebar{
+  width: 180px;
+  height: 100%;
+  overflow: auto;
+}

@@ -1,0 +1,132 @@
+/* PolicyPayment.module.css */
+:root{
+  --bg:#f5f7fa;
+  --card:#ffffff;
+  --line:#e6e9ef;
+  --text:#2b2f38;
+  --sub:#8a9099;
+  --brand:#0a0a0a;
+  --primary:#2d6df6;
+  --ok:#22c55e;
+}
+
+*{box-sizing:border-box;}
+body{background:var(--bg);}
+
+.wrap{min-height:100vh;display:flex;flex-direction:column;}
+.topbar{height:56px;background:#0f0f10;display:flex;align-items:center;padding:0 20px;}
+.brand{color:#fff;font-weight:700;font-size:18px;}
+
+.body{flex:1;display:flex;gap:20px;padding:20px;}
+.sidebar{
+  width:180px;background:#fff;border-radius:8px;box-shadow:0 2px 6px rgba(0,0,0,.06);
+  padding:10px;
+}
+.navItem{
+  padding:12px 14px;border-radius:8px;color:#444;cursor:pointer;
+}
+.navItem:hover{background:#f2f4f7;}
+.active{background:#eef3ff;color:var(--primary);font-weight:600;}
+
+.main{flex:1;}
+
+.card{
+  background:var(--card);border-radius:10px;padding:16px 16px 18px;
+  box-shadow:0 2px 6px rgba(0,0,0,.06);margin-bottom:16px;
+}
+.cardHeader{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+.cardHeaderLite{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;background:#f6f8fb;border-radius:8px;padding:10px 12px;}
+.cardTitle{font-weight:700;font-size:16px;color:var(--text);}
+.foldIcon{color:#97a0ad;}
+
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.item, .itemFull{display:flex;flex-direction:column;}
+.itemFull{grid-column:1/-1;}
+label{font-size:13px;color:#5b616a;margin-bottom:6px;}
+.input,.select,.textarea{
+  border:1px solid var(--line);border-radius:8px;background:#fff;color:#222;
+  padding:10px 12px;font-size:14px;outline:none;
+}
+.textarea{min-height:88px;resize:vertical;}
+.inputRow{display:flex;gap:10px;align-items:center;}
+.badgeOk{font-size:12px;color:#16a34a;background:#eaf9f0;border:1px solid #c4efd3;border-radius:999px;padding:4px 8px;}
+
+.hint{color:var(--sub);font-size:13px;margin-bottom:8px;}
+.uploader{}
+.uploaderDashed{
+  border:2px dashed #cfd6e4;border-radius:10px;padding:24px;text-align:center;
+  color:#8a9099;background:#fafbfc;
+}
+
+.fileList{margin-top:12px;display:flex;flex-direction:column;gap:10px;}
+.fileRow{
+  display:flex;justify-content:space-between;align-items:center;
+  background:#f7f9fc;border:1px solid #e8ecf3;border-radius:10px;padding:10px 12px;
+}
+.fileLeft{display:flex;align-items:center;gap:10px;}
+.fileIcon{width:18px;height:18px;border-radius:4px;display:inline-block;}
+.iconPdf{background:#ef4444;}
+.iconImg{background:#22c55e;}
+.fileMeta{display:flex;flex-direction:column;gap:4px;}
+.fileName{font-weight:600;color:#374151;}
+.fileSub{color:#94a3b8;font-size:12px;}
+.progressBar{height:6px;background:#e6ecf6;border-radius:999px;overflow:hidden;}
+.progress{height:100%;background:var(--primary);}
+
+.fileRight{display:flex;gap:10px;}
+.linkBtn{
+  border:1px solid #d9dee8;background:#fff;color:#4b5563;border-radius:8px;padding:6px 10px;cursor:pointer;
+}
+.dropBtn{padding:6px 12px;}
+
+.footerBtns{display:flex;justify-content:center;gap:12px;margin:16px 0 40px;}
+.btnPrimary{
+  background:var(--primary);color:#fff;border:none;border-radius:8px;padding:10px 22px;cursor:pointer;
+}
+.btnGhost{
+  background:#fff;border:1px solid #d9dee8;border-radius:8px;padding:10px 22px;cursor:pointer;
+}
+.btnPlain{
+  background:#fff;border:none;color:#6b7280;border-radius:8px;padding:10px 22px;cursor:pointer;
+}
+
+/* 响应 */
+@media (max-width: 1080px){
+  .grid2{grid-template-columns:1fr;}
+  .body{gap:12px;padding:12px;}
+  .sidebar{display:none;}
+}
+
+/* 视窗容器：顶栏高度=56px，填满剩余空间，自身或子元素滚动 */
+.viewport{
+  position: fixed;
+  top: 56px;   /* 顶栏高度 */
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;   /* 容器自己不滚，交给子元素滚 */
+}
+
+/* 原有 .body 作为两列布局 */
+.body{
+  height: 100%;
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* 让内容区滚动（推荐） */
+.mainScroll{
+  flex: 1;
+  height: 100%;
+  overflow: auto;                 /* 这里产生滚动条 */
+  -webkit-overflow-scrolling: touch;
+}
+
+/* 如侧边也可能超出高度，可让它单独滚动 */
+.sidebar{
+  width: 180px;
+  height: 100%;
+  overflow: auto;
+}

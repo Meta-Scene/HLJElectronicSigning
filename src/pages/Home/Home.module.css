@@ -1,267 +1,98 @@
-:root {
-  --text: #d9e6ef;
-  --muted: #c7d3dc;
+/* CloudLoungeWelcome.module.css */
+.welcome{
+  position:relative; width:100vw; height:100vh; overflow:hidden;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  background:#0a0a0a; animation:fadeIn 1.5s ease-out;
 }
-.bgStars{
-  position:absolute; inset:0; width:100%; height:100%; z-index:-1; object-fit:cover;
-}
-.hero {
-  position: relative;
-  height: 100vh;
-  width: 100%;
-  color: var(--text);
-  display: flex;
-  flex-direction: column;
-  justify-content: center; 
-  align-items: center;
-  overflow: hidden;
-  z-index:2;
-}
+@keyframes fadeIn{ from{opacity:0} to{opacity:1} }
 
-.inner {
-  text-align: center;
-  width: 100%;
-  max-width: 1200px;
-  padding: 0 24px;
+.welcomeBackground{ position:absolute; inset:0; z-index:1; }
+.starryBackground{
+  position:absolute; inset:0; background-size:cover; background-position:center;
+  background-repeat:no-repeat; animation:twinkle 6s ease-in-out infinite alternate;
+  transform:scale(1); transition:transform .3s ease;
 }
+@keyframes twinkle{ from{opacity:.7} to{opacity:1} }
+@media (max-width:768px){ .starryBackground{ transform:scale(1.1); } }
+@media (max-width:480px){ .starryBackground{ transform:scale(1.2); } }
 
-/* ===== 文案 ===== */
-.title {
-  margin: 0 0 8px;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  line-height: 1.1;
-  font-size: clamp(28px, 5vw, 52px);
-  text-shadow: 0 4px 24px rgba(0, 0, 0, 0.45);
-  color: rgb(196, 222, 255);
+/* 标题 */
+.titleSection{
+  position:relative; z-index:10; text-align:center;
+  margin-top:180px; margin-bottom:20px; display:flex; justify-content:center; padding:20px;
 }
-.subtitle {
-  margin: 0 0 32px;
-  font-size: clamp(14px, 2vw, 20px);
-  color: var(--muted);
-  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.45);
-  color: white;
+.welcomeTextImage{ animation:fadeInUp 1s ease-out; }
+.welcomeTextImg{
+  max-width:100%; height:auto; max-height:200px;
+  filter:drop-shadow(0 0 25px rgba(255,255,255,.4)); transition:all .4s cubic-bezier(.4,0,.2,1);
+}
+.welcomeTextImg:hover{ transform:scale(1.08); filter:drop-shadow(0 0 35px rgba(255,255,255,.6)); }
+@keyframes fadeInUp{ from{opacity:0; transform:translateY(30px)} to{opacity:1; transform:translateY(0)} }
 
+/* 功能区 */
+.featuresSection{
+  position:relative; z-index:10; display:flex; justify-content:center; align-items:center;
+  gap:40px; flex-wrap:wrap; max-width:1200px; width:100%; padding:20px;
+  margin-top:auto; margin-bottom:auto; padding-top:20px; padding-bottom:180px;
 }
+.featureImage{
+  position:relative; transition:all .4s cubic-bezier(.4,0,.2,1); cursor:pointer;
+  flex:0 0 auto; display:flex; align-items:flex-start; overflow:hidden; border:none; background:transparent;
+}
+.featureImage:hover{ transform:translateY(-8px); }
+.featureImg{
+  max-width:190px; height:auto; object-fit:contain; display:block;
+  transition:all .4s cubic-bezier(.4,0,.2,1); box-shadow:0 4px 20px rgba(0,0,0,.15);
+}
+.featureImg:hover{ box-shadow:0 8px 30px rgba(0,0,0,.25); filter:brightness(1.05); }
 
-/* ===== 卡片区域 ===== */
-.grid {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(160px, 1fr));
-  gap: 28px;
-  justify-items: center;
-}
-
-/* ===== 卡片 ===== */
-.card {
-  width: 200px;
-  height: 140px;
-  border: none;
-  border-radius: 10px;
-  color: #fff;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.25);
-  cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-.card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.3);
-}
-
-.iconImg {
-  width: 40px;
-  height: 40px;
-  object-fit: contain;
-  margin-bottom: 10px;
-}
-.text {
-  font-size: 16px;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-}
-
-/* ===== 渐变主题 ===== */
-.g1 {
-  background: linear-gradient(135deg, #8bc34a 0%, #9ccc65 45%, #7fbf3f 100%);
-}
-.g2 {
-  background: linear-gradient(135deg, #42a5f5 0%, #64b5f6 50%, #1e88e5 100%);
-}
-.g3 {
-  background: linear-gradient(135deg, #3f51b5 0%, #5c6bc0 50%, #3949ab 100%);
-}
-.g4 {
-  background: linear-gradient(135deg, #c86dd7 0%, #d76d77 40%, #ff8a65 100%);
-}
-
-/* ===== 响应式 ===== */
-@media (max-width: 1100px) {
-  .grid {
-    grid-template-columns: repeat(2, minmax(160px, 1fr));
-    gap: 20px;
-  }
-}
-@media (max-width: 560px) {
-  .hero {
-    justify-content: center;
-    padding-bottom: 0;
-  }
-  .grid {
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
-  .card {
-    width: 100%;
-    max-width: 320px;
-    height: 120px;
-  }
-  .iconImg {
-    width: 36px;
-    height: 36px;
-  }
-  .text {
-    font-size: 15px;
-  }
-}
-
-/* 视窗容器：顶栏高度=56px，填满剩余空间，自身或子元素滚动 */
-.viewport{
-  position: fixed;
-  top: 56px;   /* 顶栏高度 */
-  left: 0;
-  right: 0;
-  bottom: 0;
-  overflow: hidden;   /* 容器自己不滚，交给子元素滚 */
-}
-
-/* 原有 .body 作为两列布局 */
-.body{
-  height: 100%;
-  display: flex;
-  gap: 20px;
-  padding: 20px;
-  box-sizing: border-box;
-}
-
-/* 让内容区滚动（推荐） */
-.mainScroll{
-  flex: 1;
-  height: 100%;
-  overflow: auto;                 /* 这里产生滚动条 */
-  -webkit-overflow-scrolling: touch;
-}
-
-/* 如侧边也可能超出高度，可让它单独滚动 */
-.sidebar{
-  width: 180px;
-  height: 100%;
-  overflow: auto;
-}
-
-/* 给整排增加透视，让每张卡的轻微旋转形成“弧形” */
-.curvedGrid{
-  perspective: 1200px;               /* 控制弧度远近感 */
-  transform-style: preserve-3d;
-}
-
-/* 基础弧度：轻微后仰，并随序号左右旋转一点 */
-.curvedCard{
-  --rx: 2deg;                         /* 统一微后仰 */
-  --ry: 0deg;                         /* 每张卡的左右转角，下面按序号覆盖 */
-  transform: rotateX(var(--rx)) rotateY(var(--ry));
-  transform-origin: center center;
-  will-change: transform, box-shadow;
-}
-
-/* 让中间更平、两侧更“外撇”，产生整体弧线的错觉 */
-.curvedGrid > .curvedCard:nth-child(1){ --ry: -6deg; }
-.curvedGrid > .curvedCard:nth-child(2){ --ry: -2deg; }
-.curvedGrid > .curvedCard:nth-child(3){ --ry:  2deg; }
-.curvedGrid > .curvedCard:nth-child(4){ --ry:  6deg; }
-
-/* 细节：加一个内阴影与角落高光，增强立体感 */
-.curvedCard::before{
-  content:"";
-  position:absolute; inset:0; border-radius:10px;
-  pointer-events:none;
-  box-shadow: inset 0 0 60px rgba(0,0,0,.12);
-}
-.curvedCard::after{
-  content:"";
-  position:absolute; inset:0; border-radius:10px;
-  background: radial-gradient(120% 80% at 20% 10%, rgba(255,255,255,.18), transparent 60%);
+.featureContent{
+  position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center;
   pointer-events:none;
 }
+.featureIcon{ width:60px; height:60px; object-fit:contain; margin-bottom:8px; transition:all .3s cubic-bezier(.4,0,.2,1); }
+.featureTextImg{
+  width:220px; height:56px; background-size:880px 56px; background-repeat:no-repeat; background-position:center;
+  transition:all .3s cubic-bezier(.4,0,.2,1);
+}
+/* 文案切片（同一雪碧图四段） */
+.textPart1{ background-position:   0    0; }
+.textPart2{ background-position: -220px 0; }
+.textPart3{ background-position: -440px 0; }
+.textPart4{ background-position: -660px 0; }
 
-/* 悬停时稍微“拉平”一点，强化交互但保留弧度 */
-.curvedCard:hover{
-  transform: translateY(-4px) rotateX(1deg) rotateY(calc(var(--ry)*.6));
-  box-shadow: 0 16px 32px rgba(0,0,0,.3);
+.featureImage:hover .featureIcon{ filter:brightness(1.1); }
+.featureImage:hover .featureTextImg{ transform:translateY(-2px); filter:brightness(1.1); }
+
+/* 响应式 */
+@media (max-width:1200px){
+  .featuresSection{ gap:32px; padding:15px; }
+  .featureImg{ max-width:170px; }
+  .featureIcon{ width:50px; height:50px; margin-bottom:6px; }
+  .featureTextImg{ width:200px; height:50px; background-size:800px 50px; }
+  .textPart2{ background-position:-200px 0; }
+  .textPart3{ background-position:-400px 0; }
+  .textPart4{ background-position:-600px 0; }
 }
 
-/* 窄屏时弧度减弱，避免单列时过度倾斜 */
-@media (max-width: 1100px){
-  .curvedGrid > .curvedCard:nth-child(1),
-  .curvedGrid > .curvedCard:nth-child(2),
-  .curvedGrid > .curvedCard:nth-child(3),
-  .curvedGrid > .curvedCard:nth-child(4){ --ry: 0deg; }
+@media (max-width:768px){
+  .titleSection{ margin-top:140px; margin-bottom:15px; padding:15px; }
+  .featuresSection{ gap:28px; padding:15px; padding-top:15px; padding-bottom:140px; }
+  .featureImg{ max-width:160px; }
+  .featureIcon{ width:45px; height:45px; margin-bottom:5px; }
+  .featureTextImg{ width:180px; height:44px; background-size:720px 44px; }
+  .textPart2{ background-position:-180px 0; }
+  .textPart3{ background-position:-360px 0; }
+  .textPart4{ background-position:-540px 0; }
 }
 
-/* 让子元素 3D 变换有透视投影，形成“看上去一侧更高”的梯形 */
-.persp{
-  perspective: 1200px;
-  transform-style: preserve-3d;
+@media (max-width:480px){
+  .titleSection{ margin-top:100px; margin-bottom:10px; padding:10px; }
+  .featureImg{ max-width:130px; }
+  .featureIcon{ width:40px; height:40px; margin-bottom:4px; }
+  .featureTextImg{ width:160px; height:40px; background-size:640px 40px; }
+  .textPart2{ background-position:-160px 0; }
+  .textPart3{ background-position:-320px 0; }
+  .textPart4{ background-position:-480px 0; }
+  .featuresSection{ gap:24px; padding:10px; padding-top:10px; padding-bottom:100px; }
 }
-
-/* 作为 3D 基础：轻微后仰，避免太平 */
-.card3d{
-  transform-style: preserve-3d;
-  transform-origin: center center;
-  transition: transform .25s ease, box-shadow .25s ease;
-}
-
-/* 左侧两张：向屏幕后翻一点（右边离你近，看起来右边更低、左边更高） */
-.tiltLeft{
-  transform: rotateX(1deg) rotateY(-10deg);
-}
-
-/* 右侧两张：向屏幕前翻一点（左边离你近，看起来左边更低、右边更高） */
-.tiltRight{
-  transform: rotateX(1deg) rotateY(10deg);
-}
-
-/* 悬停时略微回正，交互更自然 */
-.tiltLeft:hover{
-  transform: translateY(-4px) rotateX(0.5deg) rotateY(-6deg);
-}
-.tiltRight:hover{
-  transform: translateY(-4px) rotateX(0.5deg) rotateY(6deg);
-}
-
-/* 取消圆角 */
-.card{ border-radius: 0 !important; }
-
-/* 3D 透视与变换 */
-.persp{
-  perspective: 1200px;
-  transform-style: preserve-3d;
-}
-.card3d{
-  transform-style: preserve-3d;
-  transform-origin: center center;
-  transition: transform .25s ease, box-shadow .25s ease;
-}
-
-/* 方向修正：
-   tiltRight：rotateY(10deg) -> 左侧更高（左边远、右边近的反效果视觉上左边高）
-   tiltLeft ：rotateY(-10deg) -> 右侧更高 */
-.tiltRight{ transform: rotateX(1deg) rotateY(15deg); }
-.tiltLeft { transform: rotateX(1deg) rotateY(-15deg); }
-
-/* 悬停略回正 */
-.tiltRight:hover{ transform: translateY(-4px) rotateX(.5deg) rotateY(6deg); }
-.tiltLeft:hover { transform: translateY(-4px) rotateX(.5deg) rotateY(-6deg); }

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./VideoMeet.module.css";
+import roomImg from "../../assets/hys.jpg";
 
 const CreateMeet = () => {
   const nav = useNavigate();
@@ -285,12 +286,15 @@ const CreateMeet = () => {
               </div>
             </div>
 
-            {/* 右侧虚拟会议室 */}
+            {/* 右侧虚拟会议室（图片铺满容器） */}
             <div className={styles.roomRight}>
               <div className={styles.virtualTitle}>虚拟会议室</div>
               <div className={styles.virtualBox}>
-                <div className={styles.virtualPreview} />
-                <div className={styles.virtualHint}>3D会议场景加载中...</div>
+                <img
+                  src={roomImg}
+                  alt="虚拟会议室"
+                  className={styles.virtualFill}
+                />
               </div>
             </div>
           </div>

@@ -465,3 +465,33 @@
   .roomRight{ min-height:auto; }
 }
 
+.virtualPreview{
+  width:360px; 
+  height:220px; 
+  border-radius:12px; 
+  background:#e3e6eb; 
+  margin-bottom:12px;
+  overflow:hidden;              /* 让圆角作用到内部图片 */
+}
+
+.virtualImg{
+  width:100%;
+  height:100%;
+  object-fit: cover;            /* 铺满裁切 */
+  display:block;
+}
+
+/* =========================
+   新增：让图片铺满灰色容器
+   ========================= */
+.virtualBox{
+  overflow: hidden;             /* 让内部图片遵循圆角并不外溢 */
+}
+
+.virtualFill{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;            /* 铺满容器，等比裁切 */
+  display: block;
+  border-radius: inherit;       /* 继承容器圆角 */
+}

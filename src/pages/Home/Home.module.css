@@ -1,43 +1,63 @@
-/* CloudLoungeWelcome.module.css */
+/* CloudLoungeWelcome.module.css —— 等效移植你的 <style scoped> */
+
 .welcome{
   position:relative; width:100vw; height:100vh; overflow:hidden;
   display:flex; flex-direction:column; align-items:center; justify-content:center;
-  background:#0a0a0a; animation:fadeIn 1.5s ease-out;
+  background:#0a0a0a; min-height:100vh; min-width:100vw; animation:fadeIn 1.5s ease-out;
 }
 @keyframes fadeIn{ from{opacity:0} to{opacity:1} }
 
 .welcomeBackground{ position:absolute; inset:0; z-index:1; }
 .starryBackground{
   position:absolute; inset:0; background-size:cover; background-position:center;
-  background-repeat:no-repeat; animation:twinkle 6s ease-in-out infinite alternate;
-  transform:scale(1); transition:transform .3s ease;
+  background-repeat:no-repeat; background-attachment:scroll;
+  animation:twinkle 6s ease-in-out infinite alternate; transform:scale(1);
+  transition:transform .3s ease;
 }
-@keyframes twinkle{ from{opacity:.7} to{opacity:1} }
+@keyframes twinkle{ 0%{opacity:.7} 100%{opacity:1} }
 @media (max-width:768px){ .starryBackground{ transform:scale(1.1); } }
 @media (max-width:480px){ .starryBackground{ transform:scale(1.2); } }
 
 /* 标题 */
 .titleSection{
   position:relative; z-index:10; text-align:center;
-  margin-top:180px; margin-bottom:20px; display:flex; justify-content:center; padding:20px;
+  margin-top:200px; margin-bottom:60px;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  padding:40px 20px; gap:20px;
 }
-.welcomeTextImage{ animation:fadeInUp 1s ease-out; }
-.welcomeTextImg{
-  max-width:100%; height:auto; max-height:200px;
-  filter:drop-shadow(0 0 25px rgba(255,255,255,.4)); transition:all .4s cubic-bezier(.4,0,.2,1);
+.welcomeTitle{
+  font-family:'YouShe BiaoTi Hei','Microsoft YaHei','微软雅黑',sans-serif;
+  font-size:75px; font-weight:bold;
+  background:linear-gradient(135deg,#E1F5FE 0%,#B3E5FC 25%,#81D4FA 50%,#4FC3F7 75%,#29B6F6 100%);
+  background-clip:text; -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+  margin:0 0 30px 0; transition:all .4s cubic-bezier(.4,0,.2,1);
+  letter-spacing:4px; line-height:1.2; animation:fadeInUp 1s ease-out;
+  cursor:pointer; filter:drop-shadow(0 0 20px rgba(129,217,230,.3));
 }
-.welcomeTextImg:hover{ transform:scale(1.08); filter:drop-shadow(0 0 35px rgba(255,255,255,.6)); }
+.welcomeSubtitle{
+  font-family:'SimSun','宋体',serif; font-size:28px; font-weight:normal; color:#fff; margin:0;
+  text-shadow:0 0 15px rgba(255,255,255,.4); transition:all .4s cubic-bezier(.4,0,.2,1);
+  letter-spacing:8px; line-height:1.4; animation:fadeInUp 1s ease-out .2s both; cursor:pointer;
+}
 @keyframes fadeInUp{ from{opacity:0; transform:translateY(30px)} to{opacity:1; transform:translateY(0)} }
+.welcomeTitle:hover{
+  transform:scale(1.05);
+  background:linear-gradient(135deg,#F3E5F5 0%,#E1BEE7 25%,#CE93D8 50%,#BA68C8 75%,#AB47BC 100%);
+  background-clip:text; -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+  filter:drop-shadow(0 0 30px rgba(129,217,230,.6));
+}
+.welcomeSubtitle:hover{ transform:scale(1.03); text-shadow:0 0 20px rgba(255,255,255,.6); }
 
-/* 功能区 */
+/* 功能卡片区 */
 .featuresSection{
   position:relative; z-index:10; display:flex; justify-content:center; align-items:center;
   gap:40px; flex-wrap:wrap; max-width:1200px; width:100%; padding:20px;
   margin-top:auto; margin-bottom:auto; padding-top:20px; padding-bottom:180px;
 }
 .featureImage{
-  position:relative; transition:all .4s cubic-bezier(.4,0,.2,1); cursor:pointer;
-  flex:0 0 auto; display:flex; align-items:flex-start; overflow:hidden; border:none; background:transparent;
+  position:relative; transition:all .4s cubic-bezier(.4,0,.2,1);
+  cursor:pointer; flex:0 0 auto; display:flex; align-items:flex-start; overflow:hidden;
+  border:none; background:transparent;
 }
 .featureImage:hover{ transform:translateY(-8px); }
 .featureImg{
@@ -51,48 +71,34 @@
   pointer-events:none;
 }
 .featureIcon{ width:60px; height:60px; object-fit:contain; margin-bottom:8px; transition:all .3s cubic-bezier(.4,0,.2,1); }
-.featureTextImg{
-  width:220px; height:56px; background-size:880px 56px; background-repeat:no-repeat; background-position:center;
-  transition:all .3s cubic-bezier(.4,0,.2,1);
+.featureText{
+  font-family:'Helvetica Neue','Arial','PingFang SC','Hiragino Sans GB','Microsoft YaHei Light','微软雅黑 Light',sans-serif;
+  font-size:20px; font-weight:300; color:#fff; text-align:center;
+  text-shadow:0 2px 4px rgba(0,0,0,.3); transition:all .3s cubic-bezier(.4,0,.2,1); margin-top:8px;
 }
-/* 文案切片（同一雪碧图四段） */
-.textPart1{ background-position:   0    0; }
-.textPart2{ background-position: -220px 0; }
-.textPart3{ background-position: -440px 0; }
-.textPart4{ background-position: -660px 0; }
-
 .featureImage:hover .featureIcon{ filter:brightness(1.1); }
-.featureImage:hover .featureTextImg{ transform:translateY(-2px); filter:brightness(1.1); }
+.featureImage:hover .featureText{ transform:translateY(-2px); filter:brightness(1.1); text-shadow:0 4px 8px rgba(0,0,0,.4); }
 
 /* 响应式 */
 @media (max-width:1200px){
   .featuresSection{ gap:32px; padding:15px; }
   .featureImg{ max-width:170px; }
   .featureIcon{ width:50px; height:50px; margin-bottom:6px; }
-  .featureTextImg{ width:200px; height:50px; background-size:800px 50px; }
-  .textPart2{ background-position:-200px 0; }
-  .textPart3{ background-position:-400px 0; }
-  .textPart4{ background-position:-600px 0; }
+  .featureText{ font-size:20px; }
 }
-
 @media (max-width:768px){
-  .titleSection{ margin-top:140px; margin-bottom:15px; padding:15px; }
-  .featuresSection{ gap:28px; padding:15px; padding-top:15px; padding-bottom:140px; }
+  .welcomeTitle{ font-size:72px; letter-spacing:3px; margin-bottom:25px; }
+  .welcomeSubtitle{ font-size:22px; letter-spacing:3px; }
+  .titleSection{ margin-top:180px; margin-bottom:50px; padding:30px 15px; gap:15px; }
+  .featuresSection{ gap:28px; align-items:flex-start; justify-content:center; padding:15px; padding-bottom:140px; }
   .featureImg{ max-width:160px; }
   .featureIcon{ width:45px; height:45px; margin-bottom:5px; }
-  .featureTextImg{ width:180px; height:44px; background-size:720px 44px; }
-  .textPart2{ background-position:-180px 0; }
-  .textPart3{ background-position:-360px 0; }
-  .textPart4{ background-position:-540px 0; }
 }
-
 @media (max-width:480px){
-  .titleSection{ margin-top:100px; margin-bottom:10px; padding:10px; }
+  .welcomeTitle{ font-size:56px; letter-spacing:2px; margin-bottom:20px; }
+  .welcomeSubtitle{ font-size:20px; letter-spacing:2px; }
+  .titleSection{ margin-top:160px; margin-bottom:40px; padding:20px 10px; gap:10px; }
   .featureImg{ max-width:130px; }
   .featureIcon{ width:40px; height:40px; margin-bottom:4px; }
-  .featureTextImg{ width:160px; height:40px; background-size:640px 40px; }
-  .textPart2{ background-position:-160px 0; }
-  .textPart3{ background-position:-320px 0; }
-  .textPart4{ background-position:-480px 0; }
-  .featuresSection{ gap:24px; padding:10px; padding-top:10px; padding-bottom:100px; }
+  .featuresSection{ gap:24px; padding:10px; padding-bottom:100px; }
 }

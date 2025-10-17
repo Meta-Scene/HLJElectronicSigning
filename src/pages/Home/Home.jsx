@@ -1,47 +1,46 @@
-// CloudLoungeWelcome.jsx  —— React 版本 + 路由跳转
+// CloudLoungeWelcome.jsx  —— React 版（按你最新 Vue 代码等效）
+// 资源路径一律以 ../../ 开头
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./Home.module.css";
 
-// 背景 & 文案
-import starBG from "../../assets/starBG.png";
-import welcomeText from "../../assets/welcome_text.png";
+// 背景与标题文案（标题这里直接用文字，不用图片）
+import starBG   from "../../assets/star_background.png";
 
+// 四张按钮底图
+import bgGreen  from "../../assets/green_btn_bg.png";
+import bgBlue1  from "../../assets/blue_btn_bg_1.png";
+import bgBlue2  from "../../assets/blue_btn_bg_2.png";
+import bgPink   from "../../assets/pink_btn_bg.png";
 
-// 四张按钮背景
-import bgGreen from "../../assets/green_btn_bg.png";
-import bgBlue1 from "../../assets/blue_btn_bg_1.png";
-import bgBlue2 from "../../assets/blue_btn_bg_2.png";
-import bgPink  from "../../assets/pink_btn_bg.png";
-
-// 四个图标（按你的文件名替换）
-import icoRoaming from "../../assets/图片 7@2x.png";
-import icoVideo   from "../../assets/图片 8@2x.png";
-import icoPolicy  from "../../assets/图片 9@2x.png";
-import icoSign    from "../../assets/图片 10@2x.png";
-
-// 文字精灵图（四段文字在一张图里）
-import textSprite from "../../assets/图片 11@2x.png";
+// 图标（文件名与路径按你的资源为准）
+import icoRoam  from "../../assets/图片 7@2x.png";
+import icoVideo from "../../assets/图片 8@2x.png";
+import icoPolicy from "../../assets/图片 9@2x.png";
+import icoSign  from "../../assets/图片 10@2x.png";
 
 export default function CloudLoungeWelcome() {
   const nav = useNavigate();
 
+  // 预加载与 resize（等价于 Vue 的 mounted / beforeUnmount）
   useEffect(() => {
-    // 预加载
     const preload = (src) => { const i = new Image(); i.src = src; };
-    [
-      starBG, welcomeText,
-      bgGreen, bgBlue1, bgBlue2, bgPink,
-      icoRoaming, icoVideo, icoPolicy, icoSign,
-      textSprite,
-    ].forEach(preload);
+    [starBG, bgGreen, bgBlue1, bgBlue2, bgPink, icoRoam, icoVideo, icoPolicy, icoSign].forEach(preload);
 
     const onResize = () => {
-      // 这里保留占位逻辑，背景尺寸已用 CSS cover 处理
+      // 背景 cover；此处留空即可，逻辑已由 CSS 处理
     };
     window.addEventListener("resize", onResize);
     return () => window.removeEventListener("resize", onResize);
   }, []);
+
+  const handleTitleClick = () => {
+    // 你的交互
+    // console.log("主标题被点击");
+  };
+  const handleSubtitleClick = () => {
+    // console.log("副标题被点击");
+  };
 
   return (
     <div className={styles.welcome}>
@@ -53,60 +52,71 @@ export default function CloudLoungeWelcome() {
         />
       </div>
 
-      {/* 标题 */}
+      {/* 标题区（使用文字版本） */}
       <div className={styles.titleSection}>
-        <div className={styles.welcomeTextImage}>
-          <img src={welcomeText} className={styles.welcomeTextImg} alt="欢迎来到云上会客厅" />
-        </div>
+        <h1 className={styles.welcomeTitle} onClick={handleTitleClick}>
+          欢迎来到云上会客厅
+        </h1>
+        <p className={styles.welcomeSubtitle} onClick={handleSubtitleClick}>
+          赋能双鸭山:家底清,服务优,产业兴
+        </p>
       </div>
 
-      {/* 功能图片 */}
+      {/* 功能卡片 */}
       <div className={styles.featuresSection}>
         {/* 云上漫游 */}
-        <button className={styles.featureImage} onClick={() => nav("/Roaming")} aria-label="云上漫游">
-          <img src={bgGreen} className={styles.featureImg} alt="" />
+        <button
+          type="button"
+          className={styles.featureImage}
+          onClick={() => nav("/Roaming")}
+          aria-label="云上漫游"
+        >
+          <img src={bgGreen} alt="" className={styles.featureImg} />
           <div className={styles.featureContent}>
-            <img src={icoRoaming} className={styles.featureIcon} alt="" />
-            <div
-              className={`${styles.featureTextImg} ${styles.textPart1}`}
-              style={{ backgroundImage: `url(${textSprite})` }}
-            />
+            <img src={icoRoam} alt="" className={styles.featureIcon} />
+            <div className={styles.featureText}>云上漫游</div>
           </div>
         </button>
 
         {/* 视频洽谈 */}
-        <button className={styles.featureImage} onClick={() => nav("/MeetManage")} aria-label="视频洽谈">
-          <img src={bgBlue1} className={styles.featureImg} alt="" />
+        <button
+          type="button"
+          className={styles.featureImage}
+          onClick={() => nav("/MeetManage")}
+          aria-label="视频洽谈"
+        >
+          <img src={bgBlue1} alt="" className={styles.featureImg} />
           <div className={styles.featureContent}>
-            <img src={icoVideo} className={styles.featureIcon} alt="" />
-            <div
-              className={`${styles.featureTextImg} ${styles.textPart2}`}
-              style={{ backgroundImage: `url(${textSprite})` }}
-            />
+            <img src={icoVideo} alt="" className={styles.featureIcon} />
+            <div className={styles.featureText}>视频洽谈</div>
           </div>
         </button>
 
         {/* 政策兑付 */}
-        <button className={styles.featureImage} onClick={() => nav("/PolicyPayment")} aria-label="政策兑付">
-          <img src={bgBlue2} className={styles.featureImg} alt="" />
+        <button
+          type="button"
+          className={styles.featureImage}
+          onClick={() => nav("/PolicyPayment")}
+          aria-label="政策兑付"
+        >
+          <img src={bgBlue2} alt="" className={styles.featureImg} />
           <div className={styles.featureContent}>
-            <img src={icoPolicy} className={styles.featureIcon} alt="" />
-            <div
-              className={`${styles.featureTextImg} ${styles.textPart3}`}
-              style={{ backgroundImage: `url(${textSprite})` }}
-            />
+            <img src={icoPolicy} alt="" className={styles.featureIcon} />
+            <div className={styles.featureText}>政策兑付</div>
           </div>
         </button>
 
         {/* 电子签约 */}
-        <button className={styles.featureImage} onClick={() => nav("/ESigning")} aria-label="电子签约">
-          <img src={bgPink} className={styles.featureImg} alt="" />
+        <button
+          type="button"
+          className={styles.featureImage}
+          onClick={() => nav("/ESigning")}
+          aria-label="电子签约"
+        >
+          <img src={bgPink} alt="" className={styles.featureImg} />
           <div className={styles.featureContent}>
-            <img src={icoSign} className={styles.featureIcon} alt="" />
-            <div
-              className={`${styles.featureTextImg} ${styles.textPart4}`}
-              style={{ backgroundImage: `url(${textSprite})` }}
-            />
+            <img src={icoSign} alt="" className={styles.featureIcon} />
+            <div className={styles.featureText}>电子签约</div>
           </div>
         </button>
       </div>

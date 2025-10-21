@@ -41,7 +41,7 @@ export default function CloudLoungeWelcome() {
           欢迎来到云上会客厅
         </h1>
         <p className={styles.welcomeSubtitle} onClick={handleSubtitleClick}>
-          赋能双鸭山:家底清,服务优,产业兴
+          家底清,服务优,产业兴
         </p>
       </div>
 

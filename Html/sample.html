@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>Cloud Roaming + UE Bridge</title>
+
+  <script>
+    if (typeof ue !== "object") { window.ue = {}; }
+    const uuidv4 = () =>
+      "10000000-1000-4000-8000-100000000000".replace(/[018]/g, t =>
+        (t ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> t / 4).toString(16)
+      );
+    const ue4 = (function (wrap) {
+      let i;
+      if (typeof ue.interface !== "object" || typeof ue.interface.broadcast !== "function") {
+        ue.interface = {};
+        return function (t, e, n, o) {
+          if (typeof t !== "string") return;
+          if (typeof e === "function") { o = n; n = e; e = null; }
+          const u = [t, "", wrap(n, o)];
+          if (e !== undefined) u[1] = e;
+          const id = encodeURIComponent(JSON.stringify(u));
+          if (typeof history === "object" && typeof history.pushState === "function") {
+            history.pushState({}, "", "#" + id);
+            history.pushState({}, "", "#" + encodeURIComponent("[]"));
+          } else {
+            document.location.hash = id;
+            document.location.hash = encodeURIComponent("[]");
+          }
+        };
+      } else {
+        i = ue.interface;
+        ue.interface = {};
+        return function (t, e, n, o) {
+          if (typeof t !== "string") return;
+          if (typeof e === "function") { o = n; n = e; e = null; }
+          const cb = wrap(n, o);
+          if (e !== undefined) i.broadcast(t, JSON.stringify(e), cb);
+          else i.broadcast(t, "", cb);
+        };
+      }
+    })(function (fn, timeoutSec) {
+      if (typeof fn !== "function") return "";
+      const id = uuidv4();
+      ue.interface[id] = fn;
+      setTimeout(() => { delete ue.interface[id]; }, 1000 * Math.max(1, parseInt(timeoutSec) || 0));
+      return id;
+    });
+  </script>
+
+  <style>
+    /* 去除滚动条和橡皮筋 */
+    html, body { height:100%; margin:0; overflow:hidden; overscroll-behavior:none; }
+    body { background:transparent; -webkit-user-select:none; }
+    #SubBG{
+      width: 100%;
+      height: 100%;
+      
+    }
+    .cloud-roaming{min-height:100vh;position:relative;overflow-x:hidden;}
+    .decoration-background{
+      position:fixed;top:0;left:0;width:100%;height:100%;
+      background-image:url('./assets/v2_sg2smy.png');background-size:cover;background-position:center top;background-repeat:no-repeat;
+      z-index:2;opacity:.9;
+    }
+
+    /* 顶部栏：永远可见 */
+    .topbar{
+      position:fixed;top:10px;left:0;right:0;z-index:30;
+      display:flex;align-items:center;justify-content:center;pointer-events:none;
+    }
+    .top-yunshang{pointer-events:none;}
+    .yunshang-image{max-width:500px;max-height:100px;height:auto;object-fit:contain;filter:drop-shadow(0 4px 8px rgba(0,0,0,.3));}
+
+    /* 右上角图片按钮：切换标签 */
+    .top-right-btn{
+      position:fixed;top:12px;right:12px;z-index:40;width:50px;height:50px;
+      object-fit:contain;cursor:pointer;transition:transform .2s ease, filter .2s ease;
+      user-select:none;pointer-events:auto;
+    }
+    .top-right-btn:hover{transform:translateY(-2px);filter:brightness(1.1);}
+    .top-right-btn.active{filter:drop-shadow(0 0 6px rgba(0,150,255,.9)) brightness(1.05);}
+
+    /* FPS HUD（可选） */
+    #fpsMeter{position:fixed;top:66px;right:16px;z-index:40;color:#fff;font:12px/1 monospace;text-shadow:0 0 4px rgba(0,0,0,.6);}
+
+    /* 主区域 */
+    .function-areas{position:fixed;top:100px;left:0;width:100%;height:calc(100% - 100px);display:flex;z-index:10;pointer-events:none;}
+    .left-area,.right-area{flex:0 0 27.5%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:auto;}
+    .center-area{flex:0 0 45%;height:100%;display:flex;align-items:center;justify-content:center;flex-direction:column;pointer-events:auto;}
+    .left-sub-area,.right-sub-area{flex:1;width:100%;display:flex;align-items:center;justify-content:center;padding:0;}
+    .area-content{width:100%;height:100%;display:flex;align-items:center;justify-content:center;}
+    .area-image{max-width:95%;max-height:95%;width:auto;height:auto;object-fit:contain;display:block;margin:auto;padding:10px;cursor:pointer;}
+
+    /* 默认隐藏左右列 */
+    .hidden{display:none !important;}
+
+    @media (max-width:768px){
+      .yunshang-image{max-width:150px;max-height:60px;}
+      .function-areas{top:80px;height:calc(100% - 80px);flex-direction:column;}
+      .left-area,.center-area,.right-area{flex:0 0 auto;width:100%;height:33.33%;}
+      .area-image{max-width:90%;max-height:90%;}
+    }
+    @media (max-width:480px){
+      .yunshang-image{max-width:120px;max-height:50px;}
+      .function-areas{top:60px;height:calc(100% - 60px);}
+      .area-image{max-width:85%;max-height:85%;}
+    }
+  </style>
+</head>
+<body>
+  <!-- 顶部栏：logo 居中，始终可见 -->
+  <div class="topbar">
+    <div class="top-yunshang">
+      <img src="./assets/yunshang.png" alt="云上" class="yunshang-image" />
+    </div>
+  </div>
+
+  <!-- 右上角图片按钮：切换标签 -->
+  <img id="toggleTag" class="top-right-btn" src="./assets/bottom.png" alt="切换标签" />
+
+  <div id="fpsMeter"></div>
+
+  <div class="cloud-roaming">
+    <div class="decoration-background"></div>
+    <img id="SubBG" src="./assets/SubBG.jpg"/>
+    <div class="function-areas">
+      <!-- 左侧：默认隐藏 -->
+      <div id="leftCol" class="left-area hidden">
+        <div class="left-sub-area"><div class="area-content">
+          <img id="imgL1" src="./assets/1@2x.png" alt="图片1" class="area-image" />
+        </div></div>
+        <div class="left-sub-area"><div class="area-content">
+          <img id="imgL2" src="./assets/2@2x.png" alt="图片2" class="area-image" />
+        </div></div>
+        <div class="left-sub-area"><div class="area-content">
+          <img id="imgL3" src="./assets/3@2x.png" alt="图片3" class="area-image" />
+        </div></div>
+      </div>
+
+      <div class="center-area"></div>
+
+      <!-- 右侧：默认隐藏 -->
+      <div id="rightCol" class="right-area hidden">
+        <div class="right-sub-area"><div class="area-content">
+          <img id="imgR1" src="./assets/4@2x.png" alt="图片4" class="area-image" />
+        </div></div>
+        <div class="right-sub-area"><div class="area-content">
+          <img id="imgR2" src="./assets/5@2x.png" alt="图片5" class="area-image" />
+        </div></div>
+        <div class="right-sub-area"><div class="area-content">
+          <img id="imgR3" src="./assets/6@2x.png" alt="图片6" class="area-image" />
+        </div></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // 阻止滚动（确保右侧不出现滚动条）
+    window.addEventListener('wheel', e => e.preventDefault(), {passive:false});
+    window.addEventListener('touchmove', e => e.preventDefault(), {passive:false});
+
+    // UE -> JS
+    ue.interface.setFPS = function (fps) {
+      var el = document.getElementById("fpsMeter");
+      if (el) el.textContent = (fps.toFixed ? fps.toFixed(1) : fps) + " FPS";
+    };
+    ue.interface.setVolume = function (val) { console.log("setVolume", val); };
+
+    document.addEventListener("DOMContentLoaded", function () {
+      // 进入即通知 UE 进入“场景展示”
+      ue4("ready");
+      ue4("Event_scene_display", "");
+
+      setTimeout(function(){
+        ue4("print", { browser: navigator.userAgent, time: Date.now() });
+      }, 1000);
+
+      var toggle = document.getElementById("toggleTag");
+      var leftCol = document.getElementById("leftCol");
+      var rightCol = document.getElementById("rightCol");
+
+      function isShown(){ return !leftCol.classList.contains("hidden") && !rightCol.classList.contains("hidden"); }
+      function showBoth(){ leftCol.classList.remove("hidden"); rightCol.classList.remove("hidden"); toggle.classList.add("active"); }
+      function hideBoth(){ leftCol.classList.add("hidden"); rightCol.classList.add("hidden"); toggle.classList.remove("active"); }
+
+      // 切换：显示→发 Event_asset_management；隐藏→发 Event_scene_display
+      toggle.addEventListener("click", function(){
+        if (isShown()){
+          hideBoth();
+          ue4("Event_scene_display", "");
+        } else {
+          showBoth();
+          ue4("Event_asset_management", "");
+        }
+      });
+
+      // 示例点击事件
+      document.getElementById("imgL1").addEventListener("click", function(){ ue4("Event_scene_roam_1", ""); });
+      document.getElementById("imgL2").addEventListener("click", function(){ ue4("Event_scene_roam_2", ""); });
+      document.getElementById("imgL3").addEventListener("click", function(){ ue4("Event_scene_roam_3", ""); });
+      document.getElementById("imgR1").addEventListener("click", function(){ ue4("Event_buiding_control", ""); });
+      document.getElementById("imgR2").addEventListener("click", function(){ ue4("Event_access_control", ""); });
+      document.getElementById("imgR3").addEventListener("click", function(){ ue4("Event_equipment_control", ""); });
+    });
+  </script>
+</body>
+</html>
